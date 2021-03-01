@@ -22,7 +22,7 @@ class Icar extends Command
      *
      * @var string
      */
-    protected $signature = 'citadelle:import:icar {--O|option=all}';
+    protected $signature = 'import:icar {--O|option=all}';
 
     /**
      * The console command description.
