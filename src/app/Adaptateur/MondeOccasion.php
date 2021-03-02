@@ -33,9 +33,9 @@ class MondeOccasion extends Adaptateur
         $vehicule->energie_id = $stock->energie()->referentiel_id ?? null;
         $vehicule->couleur_id = $stock->couleur()->id ?? null;
         $vehicule->date_circulation = $stock->date_mec;
+        $vehicule->version = $stock->version;
         $vehicule->prix = $stock->prix;
         $vehicule->prix_promo = $stock->prix_promo;
-        $vehicule->is_professionnel = 0; //TODO;
         $vehicule->km = $stock->km;
         $vehicule->cv = $stock->cv;
         $vehicule->premiere_main = 0; //TODO;
@@ -48,6 +48,7 @@ class MondeOccasion extends Adaptateur
         $vehicule->vin = $stock->chassis;
         $vehicule->immatriculation = $stock->immat;
         $vehicule->localisation = 0; //TODO;
+        $vehicule->is_particulier = 0; // Uniquement à 1 si dans le fichier pap
         $vehicule->coordonee_cache = 0; //TODO;
         $vehicule->civilite = 0; //TODO;
         $vehicule->prenom = 0; //TODO;

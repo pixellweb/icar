@@ -22,7 +22,7 @@ class Modele extends Icar
     /**
      * @param string $value
      */
-    protected function setNomAttribute(string $value)
+    protected function setLibelle_modeleAttribute(string $value)
     {
         $this->attributes['nom'] = $this->marque_id . ' - ' . $value;
     }

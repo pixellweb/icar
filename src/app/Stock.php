@@ -51,7 +51,7 @@ class Stock extends Icar
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->categoriecg)
             ->where('source_id', $this->source_id)
-            ->where('referentiel_type', 'categorie')
+            ->where('referentiel_type', 'category')
             ->first();
     }
 
@@ -61,7 +61,7 @@ class Stock extends Icar
     public function transmission()
     {
         return Correspondance::select(['referentiel_id'])
-            ->where('source_reference', $this->transmission_id)
+            ->where('source_reference', $this->tranqmission)
             ->where('source_id', $this->source_id)
             ->where('referentiel_type', 'transmission')
             ->first();

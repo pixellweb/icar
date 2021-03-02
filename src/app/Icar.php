@@ -151,7 +151,7 @@ class Icar
     {
         $date = null;
         try {
-            $date = Carbon::createFromFormat('Y-m-d H:i:s.v', $value); //'d/m/Y H:i'
+            $date = Carbon::createFromFormat('Y-m-d H:i:s.v', $value);
         } catch (\Exception $exception) {
             $date = null;
         }

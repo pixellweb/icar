@@ -136,6 +136,8 @@ class Icar extends Command
                 $stock->saveBdd($vehicule ? $vehicule : new StockModelAlias());
             }
 
+            // TODO suppression véhicule
+
         } catch (IcarException $exception) {
             $this->error(PHP_EOL.'Erreur import stock : '.$exception->getMessage());
         }
