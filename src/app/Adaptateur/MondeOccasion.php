@@ -56,7 +56,6 @@ class MondeOccasion extends Adaptateur
         $vehicule->email = 0; //TODO;
         $vehicule->gsm = 0; //TODO;
 
-
         return $vehicule;
     }
 

@@ -5,5 +5,5 @@
 composer require pixellweb/icar
 
 # Run install
-php artisan ipsum:core:install  TODO
+php artisan import:icar
 ```
