@@ -84,7 +84,7 @@ class Fichier
         foreach ($rows as $row) {
 
             // Suppression des NC
-            if (isset($row['id']) and in_array($row['id'], self::WORDS_TO_REMOVE)) {
+            if (isset($row['id']) and (in_array($row['id'], self::WORDS_TO_REMOVE) or empty($row['id']))) {
                 continue;
             }
 

@@ -93,8 +93,6 @@ class Icar
         $datas = [
             'source_reference' => $this->id,
             'intitule' => $this->nom,
-            'source_id' => $this->source_id,
-            'reference_type' => $this->getReferentielType() // TODO en doublon avec la ressource. voir api
         ];
 
         $correspondance = new Correspondance();

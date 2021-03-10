@@ -10,20 +10,18 @@ class Modele extends Icar
 
 
     /**
-     * @param string $value
+     * @return string
      */
-    protected function setMarque_idAttribute(string $value)
+    protected function getIdAttribute()
     {
-        $this->attributes['marque_id'] = $value;
-
-        $this->attributes['id'] = $value . ' - ' . $this->id;
+        return $this->attributes['id'] = $this->marque_id . ' - ' . $this->modele_id;
     }
 
     /**
-     * @param string $value
+     * @return string
      */
-    protected function setLibelle_modeleAttribute(string $value)
+    protected function getNomAttribute()
     {
-        $this->attributes['nom'] = $this->marque_id . ' - ' . $value;
+        return $this->attributes['nom'] = $this->marque_id . ' - ' . $this->libelle_modele;
     }
 }
