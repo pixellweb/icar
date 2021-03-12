@@ -9,7 +9,7 @@ use Citadelle\ReferentielApi\app\Correspondance;
 class Stock extends Icar
 {
 
-    const FICHIER_CSV = 'STOCK_VN_VO';
+    const FICHIER_CSV = 'STOCK_VO';
 
 
     protected $dates = [

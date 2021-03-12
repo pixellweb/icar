@@ -165,7 +165,16 @@ class Icar
     protected function readCsv($value): array
     {
         $array = str_getcsv($value, '|');
-        return array_map('str_getcsv', $array, array_fill(0, count($array), '-'));
+        foreach ($array as $key => $ligne) {
+            $ligne_array = str_getcsv($ligne, '#');
+            $ligne_array = array_map('trim', $ligne_array);
+            if (empty($ligne_array[0])) {
+                continue;
+            }
+            $array[$key] = $ligne_array;
+        }
+        //$array = array_map('str_getcsv', $array, array_fill(0, count($array), '#'));
+        return $array;
     }
 
     /**

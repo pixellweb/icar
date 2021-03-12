@@ -2,6 +2,7 @@
 
 namespace Citadelle\Icar\app\Console\Commands;
 
+use App\Models\Source\Source;
 use Citadelle\ReferentielApi\app\ReferentielApiException;
 use Citadelle\Icar\app\Fichier;
 use Citadelle\Icar\app\Couleur as CouleurIcar;
@@ -104,8 +105,8 @@ class Icar extends Command
 
     protected function test()
     {
-        $couleurs = CouleurIcar::import(SourceModelAlias::first());
-        dd($couleurs->get(1)->marque()->id);
+        $stocks = Stock::import(Source::find(1));
+        dd($stocks->first());
 
         $collection = new Fichier(SourceModelAlias::first(), CouleurIcar::class);
         $couleurs = $collection->get();
