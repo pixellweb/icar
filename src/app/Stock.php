@@ -3,8 +3,11 @@
 namespace Citadelle\Icar\app;
 
 
+use App\Models\Agence;
 use App\Models\Vehicule\Couleur;
 use Citadelle\ReferentielApi\app\Correspondance;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Stock extends Icar
 {
@@ -90,6 +93,35 @@ class Stock extends Icar
             ->first();
     }
 
+    /**
+     * @return Collection
+     */
+    public function caracteristiques(): Collection
+    {
+        $options = collect();
+        foreach ($this->options_generiques as $option) {
+            $correspondance = Correspondance::select(['referentiel_id'])
+                ->where('source_reference', $option[0])
+                ->where('source_id', $this->source_id)
+                ->where('referentiel_type', 'caracteristique')
+                ->first();
+            if ($correspondance) {
+                $options->push($correspondance->referentiel_id);
+            }
+        }
+        return $options;
+    }
+
+    /**
+     * @return Correspondance|null
+     */
+    public function agence()
+    {
+        return Agence::select(['id'])
+            ->where('source_reference', $this->localisation)
+            ->first();
+    }
+
 
     /**
      * @param string $value
@@ -98,6 +130,7 @@ class Stock extends Icar
     {
         $this->attributes['modele_id'] = $this->marque_id . ' - ' . $value;
     }
+
     /**
      * @param string|null $value
      */

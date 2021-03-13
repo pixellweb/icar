@@ -81,7 +81,6 @@ class Icar
     public function saveBdd(Model $model)
     {
         $this->getAdaptateur()->adapte($model);
-        $model->save();
     }
 
 
@@ -160,9 +159,9 @@ class Icar
 
     /**
      * @param $value
-     * @return array
+     * @return Collection
      */
-    protected function readCsv($value): array
+    protected function readCsv($value): Collection
     {
         $array = str_getcsv($value, '|');
         foreach ($array as $key => $ligne) {
@@ -173,8 +172,7 @@ class Icar
             }
             $array[$key] = $ligne_array;
         }
-        //$array = array_map('str_getcsv', $array, array_fill(0, count($array), '#'));
-        return $array;
+        return empty($array[0]) ? collect() : collect($array);
     }
 
     /**
