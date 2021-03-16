@@ -139,5 +139,13 @@ class Stock extends Icar
         $this->attributes['couleur_id'] = $value ? $this->marque_id . ' - ' . $value : null;
     }
 
+    protected function setChassisAttribute(string $value)
+    {
+        if (empty($value)) {
+            throw new IcarException('Numéro de chassis manquant');
+        }
+        $this->attributes['chassis'] = $value;
+    }
+
 
 }

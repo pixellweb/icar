@@ -128,13 +128,19 @@ class Icar extends Command
                 $progress_bar->setMessage($stock->chassis);
                 $progress_bar->advance();
 
-                // TODO import incrémental en fonction de $stock->derniere_modif
+                try {
 
-                $vehicule = $vehicules->first(function($item) use ($stock) {
-                    return $item->vin == $stock->chassis;
-                });
+                    // TODO import incrémental en fonction de $stock->derniere_modif
 
-                $stock->saveBdd($vehicule ? $vehicule : new StockModelAlias());
+                    $vehicule = $vehicules->first(function($item) use ($stock) {
+                        return $item->vin == $stock->chassis;
+                    });
+
+                    $stock->saveBdd($vehicule ? $vehicule : new StockModelAlias());
+
+                } catch (IcarException $exception) {
+                    $this->error(PHP_EOL.'Erreur enregistrement stock : '.$exception->getMessage());
+                }
             }
 
             // TODO suppression véhicule
