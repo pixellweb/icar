@@ -63,7 +63,7 @@ class MondeOccasion extends Adaptateur
         $vehicule->no_stock = $stock->num_stock;
         $vehicule->vin = $stock->chassis;
         $vehicule->immatriculation = $stock->immat;
-        $vehicule->is_particulier = in_array($this->source_id, Source::PARTICULIER_SOURCE_IDS);
+        $vehicule->is_particulier = in_array($stock->source_id, Source::PARTICULIER_SOURCE_IDS);
         $vehicule->is_coordonee_cache = $stock->coordonee_cache;
         $vehicule->civilite = $stock->civilite;
         $vehicule->prenom = $stock->prenom;
