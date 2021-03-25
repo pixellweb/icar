@@ -156,8 +156,8 @@ class Icar extends Command
                 }
             }
 
-            // TODO suppression véhicule
-
+            // Suppression stock
+            StockModelAlias::where('source_id', $source->id)->whereNotIn('vin', $stocks->pluck('chassis'))->delete();
 
             if (!$this->option('no-cache')) {
                 Cache::put('icar_stock_cache_date', Carbon::now());
