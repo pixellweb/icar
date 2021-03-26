@@ -41,7 +41,7 @@ class MondeOccasion extends Adaptateur
         $vehicule->km = $stock->km;
         $vehicule->cv = $stock->cv;
         $vehicule->is_premiere_main = $stock->premiere_main;
-        $vehicule->interieur = ''; //TODO;
+        $vehicule->interieur = $stock->interieur;
         $vehicule->place = $stock->places;
         $vehicule->porte = $stock->portes;
         $vehicule->taux_co2 = $stock->co2;

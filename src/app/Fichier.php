@@ -50,6 +50,7 @@ class Fichier
         'couleur' => CouleurPrincipale::class,
         'marque' => Marque::class,
         'modele' => Modele::class,
+        //'caracteristiques' => Caracteristique:class, // TODO
     ];
 
 
