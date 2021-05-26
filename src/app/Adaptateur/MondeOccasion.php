@@ -27,6 +27,7 @@ class MondeOccasion extends Adaptateur
     public function stock(Stock $stock, Vehicule $vehicule)
     {
 
+        $vehicule->site_id = $stock->site_id;
         $vehicule->source_id = $stock->source_id;
         $vehicule->modele_id = $stock->modele()->referentiel_id ?? null;
         $vehicule->categorie_id = $stock->categorie()->referentiel_id ?? null;

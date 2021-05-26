@@ -90,6 +90,7 @@ class Fichier
             }
 
             $row['source_id'] = $this->source->id;
+            $row['site_id'] = $this->source->site_id;
 
             $collection->push(new $this->class($row));
         }
