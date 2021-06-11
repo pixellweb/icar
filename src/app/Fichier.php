@@ -47,6 +47,7 @@ class Fichier
         'energy' => Carburant::class,
         'transmission' => Transmission::class,
         'category' => Categorie::class,
+        'lifestyle' => Segment::class,
         'couleur' => CouleurPrincipale::class,
         'marque' => Marque::class,
         'modele' => Modele::class,

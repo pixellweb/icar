@@ -52,9 +52,21 @@ class Stock extends Icar
     public function categorie()
     {
         return Correspondance::select(['referentiel_id'])
-            ->where('source_reference', $this->carrosserie)
+            ->where('source_reference', $this->segment_de_marche)
             ->where('source_id', $this->source_id)
             ->where('referentiel_type', 'category')
+            ->first();
+    }
+
+    /**
+     * @return Correspondance|null
+     */
+    public function lifestyle()
+    {
+        return Correspondance::select(['referentiel_id'])
+            ->where('source_reference', $this->carrosserie)
+            ->where('source_id', $this->source_id)
+            ->where('referentiel_type', 'lifestyle')
             ->first();
     }
 
