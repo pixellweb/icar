@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 class Stock extends Icar
 {
 
-    const FICHIER_CSV = 'STOCK_VO';
+    const FICHIER_CSV = 'STOCK';
 
 
     protected $dates = [
@@ -32,6 +32,19 @@ class Stock extends Icar
         'prix_promo',
         'immat',
     ];
+
+
+    /**
+     * @return Correspondance|null
+     */
+    public function marque()
+    {
+        return Correspondance::select(['referentiel_id'])
+            ->where('source_reference', $this->modele_id)
+            ->where('source_id', $this->source_id)
+            ->where('referentiel_type', 'marque')
+            ->first();
+    }
 
 
     /**
@@ -76,7 +89,7 @@ class Stock extends Icar
     public function transmission()
     {
         return Correspondance::select(['referentiel_id'])
-            ->where('source_reference', $this->tranqmission)
+            ->where('source_reference', $this->transmission)
             ->where('source_id', $this->source_id)
             ->where('referentiel_type', 'transmission')
             ->first();
@@ -125,13 +138,22 @@ class Stock extends Icar
     }
 
     /**
-     * @return Correspondance|null
+     * @return Agence|null
      */
     public function agence()
     {
         return Agence::select(['id'])
             ->where('source_reference', $this->localisation)
             ->first();
+    }
+
+
+    /**
+     * @return  string $value
+     */
+    protected function getTypeAttribute()
+    {
+        return $this->attributes['vnvo'] == 1 ? 'VO' : 'VN';
     }
 
 

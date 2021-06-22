@@ -84,7 +84,7 @@ class MondeOccasion extends Adaptateur
         $couleur->source_reference = $couleur_icar->id;
         $couleur->nom = $couleur_icar->nom;
         $couleur->source_id = $couleur_icar->source_id;
-        $couleur->couleurs_principale_id = $couleur_icar->couleurPrincipale()->id ?? null;
+        $couleur->couleurs_principale_id = $couleur_icar->couleurPrincipale()->referentiel_id ?? null;
 
         $couleur->save();
 

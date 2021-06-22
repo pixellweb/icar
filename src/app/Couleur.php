@@ -17,7 +17,7 @@ class Couleur extends Icar
     public function couleurPrincipale()
     {
         return Correspondance::select(['referentiel_id'])
-            ->where('source_reference', $this->couleurs_principales_id)
+            ->where('source_reference', $this->id_couleur_principale)
             ->where('source_id', $this->source_id)
             ->where('referentiel_type', 'couleur')
             ->first();

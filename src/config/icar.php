@@ -10,7 +10,8 @@ return [
     'models-alias' => [
         'Citadelle\ReferentielApi\app\SourceModelAlias' => App\Models\Source\Source::class,
         'Citadelle\ReferentielApi\app\CouleurModelAlias' => App\Models\Vehicule\Couleur::class,
-        'Citadelle\ReferentielApi\app\StockModelAlias' => App\Models\Vehicule\Vehicule::class
+        'Citadelle\ReferentielApi\app\StockModelAlias' => App\Models\Vehicule\Vehicule::class,
+        'Citadelle\ReferentielApi\app\VehiculeModelAlias' => null
     ]
 
 ];

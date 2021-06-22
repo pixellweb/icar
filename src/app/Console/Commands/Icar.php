@@ -17,6 +17,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Citadelle\ReferentielApi\app\SourceModelAlias;
 use Citadelle\ReferentielApi\app\CouleurModelAlias;
 use Citadelle\ReferentielApi\app\StockModelAlias;
+use Citadelle\ReferentielApi\app\VehiculeModelAlias;
 
 class Icar extends Command
 {
@@ -55,7 +56,9 @@ class Icar extends Command
 
 
         foreach (config('citadelle.icar.models-alias') as $alias => $model) {
-            class_alias($model, $alias);
+            if ($model) {
+                class_alias($model, $alias);
+            }
         }
     }
 
@@ -78,7 +81,8 @@ class Icar extends Command
         $sources = SourceModelAlias::all();
 
         if (in_array($option, ['all', 'stock'])) {
-            $vehicules = StockModelAlias::select(['id', 'vin'])->get();
+            $stocks = StockModelAlias::select(['id', 'vin'])->get();
+            $vehicules = VehiculeModelAlias::get();
         }
         if (in_array($option, ['all', 'couleur'])) {
             $couleurs = CouleurModelAlias::select(['id', 'source_reference', 'source_id'])->get();
@@ -95,7 +99,7 @@ class Icar extends Command
                     $this->referentiel($source);
                     break;
                 case 'stock' :
-                    $this->stock($source, $vehicules, $cache_date);
+                    $this->stock($source, $stocks, $vehicules, $cache_date);
                     break;
                 case 'couleur' :
                     $this->couleur($source, $couleurs);
@@ -104,7 +108,7 @@ class Icar extends Command
                 case 'all' :
                 default :
                     $this->couleur($source, $couleurs);
-                    $this->stock($source, $vehicules, $cache_date);
+                    $this->stock($source, $stocks, $vehicules, $cache_date);
                     $this->referentiel($source);
                 break;
             }
@@ -124,18 +128,18 @@ class Icar extends Command
         dd($couleurs->get(1));
     }
 
-    protected function stock($source, $vehicules, $cache_date)
+    protected function stock($source, $stocks, $vehicules, $cache_date)
     {
         $this->info(PHP_EOL.'**** Import du stock ****');
         $progress_bar = $this->startProgressBar(0);
 
         try {
 
-            $stocks = Stock::import($source);
+            $stocks_icar = Stock::import($source);
 
             $progress_bar->setMaxSteps($stocks->count());
 
-            foreach ($stocks as $stock) {
+            foreach ($stocks_icar as $stock) {
                 $progress_bar->setMessage($stock->chassis);
                 $progress_bar->advance();
 
@@ -145,7 +149,7 @@ class Icar extends Command
                         continue;
                     }
 
-                    $vehicule = $vehicules->first(function($item) use ($stock) {
+                    $vehicule = $stocks->first(function($item) use ($stock) {
                         return $item->vin == $stock->chassis;
                     });
 
@@ -157,7 +161,7 @@ class Icar extends Command
             }
 
             // Suppression stock
-            StockModelAlias::where('source_id', $source->id)->whereNotIn('vin', $stocks->pluck('chassis'))->delete();
+            StockModelAlias::where('source_id', $source->id)->whereNotIn('vin', $stocks_icar->pluck('chassis'))->delete();
 
             if (!$this->option('no-cache')) {
                 Cache::put('icar_stock_cache_date', Carbon::now());
