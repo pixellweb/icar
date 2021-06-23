@@ -78,7 +78,7 @@ class Oovango extends Adaptateur
         $site_stock->vehicule_id = $vehicule->id;
         $site_stock->source_id = $stock->source_id;
         $site_stock->couleur_id = $stock->couleur()->id ?? null;
-        $vehicule->contact_id = $this->contact($stock->source_id, $stock->marque()->referentiel_id ?? null, $stock->type);
+        $site_stock->contact_id = $this->contact($stock->source_id, $stock->marque()->referentiel_id ?? null, $stock->type);
         $site_stock->no_stock = $stock->num_stock;
         $site_stock->vin = $stock->chassis;
         $site_stock->immatriculation = $stock->immat;
@@ -128,7 +128,7 @@ class Oovango extends Adaptateur
             }
         }
 
-        return $contact;
+        return $contact->id;
     }
 
 }
