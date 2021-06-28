@@ -41,6 +41,7 @@ class Oovango extends Adaptateur
             ->where('is_demonstration', $stock->demo)
             ->where('place', $stock->places)
             ->where('porte', $stock->portes)
+            ->where('interieur', $stock->interieur)
             ->get();
 
         $vehicule_correspondant = null;
