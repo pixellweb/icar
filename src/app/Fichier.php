@@ -4,8 +4,9 @@
 namespace Citadelle\Icar\app;
 
 
-use App\Models\Source\Source;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection as CollectionLaravel;
+use phpDocumentor\Reflection\Types\Integer;
 
 class Fichier
 {
@@ -13,18 +14,26 @@ class Fichier
      * @var ReaderCsv
      */
     protected $reader_csv;
+
     /**
      * @var string
      */
     protected $base_path;
+
     /**
      * @var string
      */
     protected $projet;
+
     /**
-     * @var Source
+     * @var int
      */
-    protected $source;
+    protected $api_source_id;
+
+    /**
+     * @var string
+     */
+    protected $repertoire_ftp;
 
     /**
      * @var string
@@ -57,16 +66,18 @@ class Fichier
 
     /**
      * Fichier constructor.
-     * @param Source $source
+     * @param Int $api_source_id
+     * @param string $repertoire_ftp
      * @param $class
      */
-    public function __construct(Source $source, string $class)
+    public function __construct(int $api_source_id, string $repertoire_ftp, string $class)
     {
         $this->reader_csv = new ReaderCsv();
         $this->base_path = base_path(config('citadelle.icar.path'));
         $this->projet = config('citadelle.icar.projet');
 
-        $this->source = $source;
+        $this->api_source_id = $api_source_id;
+        $this->repertoire_ftp = $repertoire_ftp;
 
         $this->class = $class;
     }
@@ -90,8 +101,7 @@ class Fichier
                 continue;
             }
 
-            $row['source_id'] = $this->source->id;
-            $row['site_id'] = $this->source->site_id;
+            $row['api_source_id'] = $this->api_source_id;
 
             $collection->push(new $this->class($row));
         }
@@ -104,7 +114,7 @@ class Fichier
      */
     protected function getFichier()
     {
-        return $this->base_path . '/' . $this->source->repertoire_ftp . '/' . $this->projet . '_' . $this->class::FICHIER_CSV . '_' . $this->source->repertoire_ftp . '.csv';
+        return $this->base_path . '/' . $this->repertoire_ftp . '/' . $this->projet . '_' . $this->class::FICHIER_CSV . '_' . $this->repertoire_ftp . '.csv';
     }
 
 }

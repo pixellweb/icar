@@ -3,14 +3,12 @@
 namespace Citadelle\Icar;
 
 
-use Citadelle\Icar\app\Console\Commands\Icar;
 use Illuminate\Support\ServiceProvider;
 
 class IcarServiceProvider extends ServiceProvider
 {
 
     protected $commands = [
-        Icar::class,
     ];
 
     /**
@@ -57,6 +55,6 @@ class IcarServiceProvider extends ServiceProvider
         );
 
         // register the artisan commands
-        $this->commands($this->commands);
+        //$this->commands($this->commands);
     }
 }

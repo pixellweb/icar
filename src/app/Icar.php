@@ -4,8 +4,6 @@
 namespace Citadelle\Icar\app;
 
 
-use Citadelle\Icar\app\Adaptateur\Adaptateur;
-use App\Models\Source\Source;
 use Carbon\Carbon;
 use Citadelle\ReferentielApi\app\Ressources\Correspondance;
 use Illuminate\Database\Eloquent\Model;
@@ -14,11 +12,6 @@ use ArrayAccess;
 
 class Icar implements ArrayAccess
 {
-    /**
-     * @var Adaptateur
-     */
-    protected $adaptateur;
-
     /**
      * @var array
      */
@@ -39,13 +32,13 @@ class Icar implements ArrayAccess
 
 
     /**
-     * @param Source $source
+     * @param Model $source
      * @return Collection
      * @throws IcarException
      */
-    public static function import(Source $source): Collection
+    public static function import($api_source_id, $repertoire_ftp): Collection
     {
-        $objet = new Fichier($source, static::class);
+        $objet = new Fichier($api_source_id, $repertoire_ftp, static::class);
         return $objet->get();
     }
 
@@ -55,9 +48,6 @@ class Icar implements ArrayAccess
      */
     public function __construct(array $attributes = [])
     {
-        $adaptateur = config('citadelle.icar.adaptateur');
-        $this->adaptateur = new $adaptateur($this);
-
         $this->fill($attributes);
     }
 
@@ -77,15 +67,6 @@ class Icar implements ArrayAccess
 
 
     /**
-     * @param Model $model
-     */
-    public function saveBdd(Model $model)
-    {
-        $this->getAdaptateur()->adapte($model);
-    }
-
-
-    /**
      *
      */
     public function addReferentiel()
@@ -96,7 +77,7 @@ class Icar implements ArrayAccess
         ];
 
         $correspondance = new Correspondance();
-        $correspondance->post($this->source_id, $this->getReferentielType(), $datas);
+        $correspondance->post($this->api_source_id, $this->getReferentielType(), $datas);
     }
 
 
@@ -191,14 +172,6 @@ class Icar implements ArrayAccess
     public function getReferentielType()
     {
         return in_array(static::class, Fichier::REFERENTIEL_TYPES) ? array_search(static::class, Fichier::REFERENTIEL_TYPES) : null;
-    }
-
-    /**
-     * @return Adaptateur|null
-     */
-    public function getAdaptateur()
-    {
-        return $this->adaptateur;
     }
 
     public function offsetSet($offset, $value)

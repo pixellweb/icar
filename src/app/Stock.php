@@ -41,7 +41,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->modele_id)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'marque')
             ->first();
     }
@@ -54,7 +54,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->modele_id)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'modele')
             ->first();
     }
@@ -66,7 +66,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->carrosserie)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'category')
             ->first();
     }
@@ -78,7 +78,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->segment_de_marche)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'lifestyle')
             ->first();
     }
@@ -90,7 +90,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->transmission)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'transmission')
             ->first();
     }
@@ -102,7 +102,7 @@ class Stock extends Icar
     {
         return Correspondance::select(['referentiel_id'])
             ->where('source_reference', $this->energie)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'energy')
             ->first();
     }
@@ -114,7 +114,7 @@ class Stock extends Icar
     {
         return Couleur::select(['id'])
             ->where('source_reference', $this->couleur_id)
-            ->where('source_id', $this->source_id)
+            ->where('source_id', $this->api_source_id)
             ->first();
     }
 
@@ -127,7 +127,7 @@ class Stock extends Icar
         foreach ($this->options_generiques as $option) {
             $correspondance = Correspondance::select(['referentiel_id'])
                 ->where('source_reference', $option[0])
-                ->where('source_id', $this->source_id)
+                ->where('source_id', $this->api_source_id)
                 ->where('referentiel_type', 'caracteristique')
                 ->first();
             if ($correspondance) {
