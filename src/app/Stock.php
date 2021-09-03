@@ -24,13 +24,22 @@ class Stock extends Icar
     protected $csvs = [
         'options_const_conc',
         'options_generiques',
-        'garanties'
+        'garanties',
+        'pack_pneus',
+        'equipements'
     ];
 
     protected $nullables = [
         'prix',
         'prix_promo',
         'immat',
+        'co2',
+        'hauteur',
+        'longueur2',
+        'longueur1',
+        'prix_bonus',
+        'prix_malus',
+        'anne_modele',
     ];
 
 
@@ -40,7 +49,7 @@ class Stock extends Icar
     public function marque()
     {
         return Correspondance::select(['referentiel_id'])
-            ->where('source_reference', $this->modele_id)
+            ->where('source_reference', $this->marque_id)
             ->where('source_id', $this->api_source_id)
             ->where('referentiel_type', 'marque')
             ->first();
@@ -179,6 +188,13 @@ class Stock extends Icar
             throw new IcarException('Numéro de chassis manquant');
         }
         $this->attributes['chassis'] = $value;
+    }
+
+    protected function setPack_pneusAttribute(Collection $value)
+    {
+        if (isset($value[0][2])) {
+            $this->attributes['monte'] = $value[0][2];
+        }
     }
 
 

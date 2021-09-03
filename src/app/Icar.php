@@ -87,25 +87,23 @@ class Icar implements ArrayAccess
      */
     public function __set($name, $value)
     {
+        if (in_array($name, $this->dates)) {
+            $value = $this->createDate($value);
+        }
+
+        if (in_array($name, $this->csvs)) {
+            $value = $this->readCsv($value);
+        }
+
+        if (in_array($name, $this->nullables)) {
+            $value = $this->setNullable($value);
+        }
+
         if (method_exists($this, 'set' . lcfirst($name) . 'Attribute')) {
             $this->{'set' . lcfirst($name) . 'Attribute'}($value);
         } else {
-
-            if (in_array($name, $this->dates)) {
-                $value = $this->createDate($value);
-            }
-
-            if (in_array($name, $this->csvs)) {
-                $value = $this->readCsv($value);
-            }
-
-            if (in_array($name, $this->nullables)) {
-                $value = $this->setNullable($value);
-            }
-
             $this->attributes[$name] = $value;
         }
-
     }
 
     /**
