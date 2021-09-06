@@ -33,7 +33,6 @@ class Stock extends Icar
         'prix',
         'prix_promo',
         'immat',
-        'co2',
         'hauteur',
         'longueur2',
         'longueur1',
@@ -135,7 +134,17 @@ class Stock extends Icar
         $options = collect();
         foreach ($this->options_generiques as $option) {
             $correspondance = Correspondance::select(['referentiel_id'])
-                ->where('source_reference', $option[0])
+                ->where('source_reference', $option[1])
+                ->where('source_id', $this->api_source_id)
+                ->where('referentiel_type', 'caracteristique')
+                ->first();
+            if ($correspondance) {
+                $options->push($correspondance->referentiel_id);
+            }
+        }
+        foreach ($this->equipements as $option) {
+            $correspondance = Correspondance::select(['referentiel_id'])
+                ->where('source_reference', $option[1])
                 ->where('source_id', $this->api_source_id)
                 ->where('referentiel_type', 'caracteristique')
                 ->first();
@@ -163,6 +172,17 @@ class Stock extends Icar
     protected function getTypeAttribute()
     {
         return $this->attributes['vnvo'] == 1 ? 'VO' : 'VN';
+    }
+
+    /**
+     * @return  Collection equipements
+     */
+    protected function getEquipementsAttribute()
+    {
+        $equipements = isset($this->attributes['equipements']) ? $this->attributes['equipements'] : collect();
+        return $equipements->map(function ($value) {
+            return [0 => null, 1 => $value[0]];
+        });
     }
 
 
