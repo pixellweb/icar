@@ -62,7 +62,8 @@ class ReaderCsv
 
         $strgetcsv = function ($str) {
 
-            $array = str_getcsv(utf8_encode($str), $this->separator, $this->enclosure);
+            // utf8_encode ne fonctionne pas avec par exemple le sigle €
+            $array = str_getcsv(iconv('Windows-1252', 'UTF-8', $str), $this->separator, $this->enclosure);
 
             return array_map('trim', $array);
         };
