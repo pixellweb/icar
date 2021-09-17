@@ -30,7 +30,8 @@ class Stock extends Icar
     ];
 
     protected $nullables = [
-        'prix',
+        'prix_web',
+        'prix_remise',
         'prix_promo',
         'immat',
         'hauteur',
@@ -172,17 +173,6 @@ class Stock extends Icar
     protected function getTypeAttribute()
     {
         return $this->attributes['vnvo'] == 1 ? 'VO' : 'VN';
-    }
-
-    /**
-     * @return  Collection equipements
-     */
-    protected function getEquipementsAttribute()
-    {
-        $equipements = isset($this->attributes['equipements']) ? $this->attributes['equipements'] : collect();
-        return $equipements->map(function ($value) {
-            return [0 => null, 1 => $value[0]];
-        });
     }
 
 

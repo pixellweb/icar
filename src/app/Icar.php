@@ -147,7 +147,7 @@ class Icar implements ArrayAccess
         foreach ($array as $key => $ligne) {
             $ligne_array = str_getcsv($ligne, '#');
             $ligne_array = array_map('trim', $ligne_array);
-            if (empty($ligne_array[0])) {
+            if (empty($ligne_array[0]) and !isset($ligne_array[1])) {
                 continue;
             }
             $array[$key] = $ligne_array;
