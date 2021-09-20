@@ -143,14 +143,16 @@ class Stock extends Icar
                 $options->push($correspondance->referentiel_id);
             }
         }
-        foreach ($this->equipements as $option) {
-            $correspondance = Correspondance::select(['referentiel_id'])
-                ->where('source_reference', $option[1])
-                ->where('source_id', $this->api_source_id)
-                ->where('referentiel_type', 'caracteristique')
-                ->first();
-            if ($correspondance) {
-                $options->push($correspondance->referentiel_id);
+        if ($this->equipements) {
+            foreach ($this->equipements as $option) {
+                $correspondance = Correspondance::select(['referentiel_id'])
+                    ->where('source_reference', $option[1])
+                    ->where('source_id', $this->api_source_id)
+                    ->where('referentiel_type', 'caracteristique')
+                    ->first();
+                if ($correspondance) {
+                    $options->push($correspondance->referentiel_id);
+                }
             }
         }
         return $options;
