@@ -135,7 +135,7 @@ class Stock extends Icar
         $options = collect();
         foreach ($this->options_generiques as $option) {
             $correspondance = Correspondance::select(['referentiel_id'])
-                ->where('source_reference', $option[1])
+                ->where('source_reference', $option[0])
                 ->where('source_id', $this->api_source_id)
                 ->where('referentiel_type', 'caracteristique')
                 ->first();
@@ -146,7 +146,7 @@ class Stock extends Icar
         if ($this->equipements) {
             foreach ($this->equipements as $option) {
                 $correspondance = Correspondance::select(['referentiel_id'])
-                    ->where('source_reference', $option[1])
+                    ->where('source_reference', $option[0])
                     ->where('source_id', $this->api_source_id)
                     ->where('referentiel_type', 'caracteristique')
                     ->first();
