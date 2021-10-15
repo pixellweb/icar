@@ -70,7 +70,10 @@ class ReaderCsv
 
         // Récupération des données sous forme de tableau
         $csv = array_map($strgetcsv, file($this->path));
-
+        
+        if (count($csv) < 4) {
+            throw new IcarException('Fichier avec trop peu de ligne (erreur sql ?) ' . $this->path);
+        }
 
         $this->header = isset($csv[0]) ? $csv[0] : null;
         // remove column header
