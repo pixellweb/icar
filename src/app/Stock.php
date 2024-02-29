@@ -177,6 +177,13 @@ class Stock extends Icar
         return $this->attributes['vnvo'] == 1 ? 'VO' : 'VN';
     }
 
+    /**
+     * @return  boolean $value
+     */
+    protected function getIsReserveAttribute()
+    {
+        return !in_array(strtolower($this->attributes['statut']), ['en stock (disponible)']);
+    }
 
     /**
      * @param string $value
