@@ -216,5 +216,17 @@ class Stock extends Icar
         }
     }
 
+    protected function setEquipementsAttribute(Collection $value)
+    {
+        $value = $value->map(function ($item, $key) {
+            if (!isset($item[1])) {
+                // Fix GSA
+                $item[1] = $item[0];
+            }
+            return $item;
+        });
+        $this->attributes['equipements'] = $value;
+    }
+
 
 }

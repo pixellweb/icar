@@ -87,6 +87,8 @@ class Icar implements ArrayAccess
      */
     public function __set($name, $value)
     {
+        $value = $value == 'NULL' ? null : $value; // GSA
+
         if (in_array($name, $this->dates)) {
             $value = $this->createDate($value);
         }
