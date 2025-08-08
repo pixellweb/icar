@@ -228,5 +228,13 @@ class Stock extends Icar
         $this->attributes['equipements'] = $value;
     }
 
+    protected function setPlacesAttribute($value)
+    {
+        $this->attributes['places'] = $value ?? 0; // pas terrible
+    }
 
+    protected function setLabel_energieAttribute($value)
+    {
+        $this->attributes['label_energie'] = $value ?? 0; // pas terrible
+    }
 }
