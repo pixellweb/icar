@@ -30,6 +30,7 @@ class Stock extends Icar
     ];
 
     protected $nullables = [
+        'prix_icar',
         'prix_web',
         'prix_remise',
         'prix_promo',

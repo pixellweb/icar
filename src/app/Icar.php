@@ -163,7 +163,7 @@ class Icar implements ArrayAccess
      */
     protected function setNullable($value)
     {
-        return (empty($value) or in_array($value, ['.00'])) ? null : $value;
+        return (empty($value) or in_array($value, ['.00', '.0000'])) ? null : $value;
     }
 
     /**
