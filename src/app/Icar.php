@@ -134,7 +134,11 @@ class Icar implements ArrayAccess
         try {
             $date = Carbon::createFromFormat('Y-m-d H:i:s.v', $value);
         } catch (\Exception $exception) {
-            $date = null;
+            try {
+                $date = Carbon::createFromFormat('Y-m-d H:i:s', $value); // format différent sur GSA. Solution pas terrible
+            } catch (\Exception $exception) {
+                $date = null;
+            }
         }
         return $date;
     }
