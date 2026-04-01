@@ -71,7 +71,7 @@ class Fichier
      */
     public function __construct(int $api_source_id, string $repertoire_ftp, string $class)
     {
-        $this->reader_csv = new ReaderCsv();
+        $this->reader_csv = new ReaderCsv(null, $api_source_id == 8);
         $this->base_path = base_path(config('citadelle.icar.path'));
         $this->projet = config('citadelle.icar.projet');
 
